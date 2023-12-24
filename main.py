@@ -1,9 +1,5 @@
-# Compute Mass Of Black Hole
-# Print Data for M vs C vs P Plot
+import pandas as pd
 
-# CO orbital circumference
-# PO orbital, period, seconds
-# G Gravitational constant km**3/s**2 per solar mass
 def main():
     # Constants
     G = 1.327E11  # Gravitational constant of Isaac Newton (km/s per Solar Mass)
@@ -12,15 +8,25 @@ def main():
     # Get user input for CO orbital circumference
     CO = float(input("Enter the orbital circumference of your object (km): "))
 
+    # Lists to store data
+    PO_values = []
+    MassHole_values = []
+
     # Loop over PO values from 10 to 1000 in steps of 10
     for PO in range(10, 1000, 10):
         # Calculate MassHole using the given formula
         MassHole = CO * CO * CO / (2 * pi * G * PO * PO)
-        # Print PO and MassHole
-        print("One orbit around the object in:", PO,
-              "seconds.  Then the Mass of the object is: ", round(MassHole,1),
-              "in solar masses")
+        # Append data to lists
+        PO_values.append(PO)
+        MassHole_values.append(round(MassHole, 1))
 
+    # Create a DataFrame
+    data = {'One orbit around the object in (seconds)': PO_values,
+            'Mass of the object in solar masses': MassHole_values}
+    df = pd.DataFrame(data)
+
+    # Display DataFrame
+    print(df)
 
 if __name__ == "__main__":
     main()
